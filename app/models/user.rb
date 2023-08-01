@@ -4,11 +4,12 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  enum genre: { client: 0, admin: 1 }
+  enum role: { client: 0, admin: 1 }
   validates :phone_number, phone: {
     possible: true,
     allow_blank: true,
     types: %i[voip mobile],
     countries: [:ph]
     }
+  validates :username, presence: true, uniqueness: { case_sensitive: false }
 end
