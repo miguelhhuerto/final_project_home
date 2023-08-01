@@ -5,6 +5,8 @@ ruby "3.0.4"
 
 gem 'devise'
 
+gem 'bootstrap', '~> 4.5.0'
+
 gem 'phonelib'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"

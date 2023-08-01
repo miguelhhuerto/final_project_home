@@ -19,13 +19,7 @@ Rails.application.routes.draw do
 
   constraints(ClientDomainConstraint.new) do
     devise_scope :user do
-      authenticated :user do
         root 'home#index', as: :client_authenticated_root
-      end
-
-      unauthenticated do
-        root 'client/sessions#new', as: :client_unauthenticated_root
-      end
     end
   end
 end
