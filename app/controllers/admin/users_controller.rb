@@ -3,7 +3,7 @@ class Admin::UsersController < ApplicationController
   before_action :check_admin 
 
   def index
-    @users = User.page params[:page]
+    @users = User
   end
 
   def check_admin

@@ -12,4 +12,9 @@ class User < ApplicationRecord
     countries: [:ph]
     }
   validates :username, presence: true, uniqueness: { case_sensitive: false }
+
+
+  has_one :profile
+  accepts_nested_attributes_for :profile
+  mount_uploader :image, ImageUploader
 end

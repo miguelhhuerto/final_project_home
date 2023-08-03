@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
 
+
+
   constraints(AdminDomainConstraint.new) do
     namespace :admin do
       resources :users
@@ -8,7 +10,7 @@ Rails.application.routes.draw do
 
     devise_scope :user do
       authenticated :user do
-        root 'home#index', as: :authenticated_root
+        root 'admin/home#index', as: :authenticated_root
       end
   
       unauthenticated do
@@ -18,8 +20,8 @@ Rails.application.routes.draw do
   end
 
   constraints(ClientDomainConstraint.new) do
-    devise_scope :user do
-        root 'home#index', as: :client_authenticated_root
+        root 'home#index'
+        resources :home
+        resource :user
     end
-  end
 end

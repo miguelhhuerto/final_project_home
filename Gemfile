@@ -9,6 +9,8 @@ gem 'bootstrap', '~> 4.5.0'
 
 gem 'phonelib'
 
+gem 'carrierwave'
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.6"
 
