@@ -3,3 +3,8 @@ module Address
     "address_"
   end
 end
+
+class Address < ApplicationRecord
+  belongs_to :user
+end
+
