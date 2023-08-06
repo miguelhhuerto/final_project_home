@@ -9,3 +9,4 @@
 
 <%= link_to 'Edit Profile', edit_user_registration_path if current_user%>
 <%= link_to 'personal information', user_path if current_user %>
+<%= link_to 'Address', user_addresses_path(@user) if current_user %>
