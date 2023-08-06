@@ -8,10 +8,27 @@
     <td>Phone Number</td>
     <td>Remark</td>
     <td>Default?</td>
+    <td>Action</td>
 
   </thead>
 
-</table>
+
+  <% @addresses.each do |address| %>
+      <tr>
+        <td><%= address.genre %></td>
+        <td><%= address.name %></td>
+        <td><%= "#{address.street_address}, #{address.region&.name}, #{address.province&.name}, #{address.city&.name}, #{address.barangay&.name}" %></td>
+        <td><%= address.phone_number %></td>
+        <td><%= address.remark %></td>
+        <td><%= address.is_default %></td>
+        <td>
+        <td>
+          <%= link_to 'Edit', edit_user_address_path(address), class: "d-grid gap-2 btn btn-outline-secondary btn-sm", type: 'button' %>
+          <%= button_to 'Delete', user_addresses_path(address), class: "d-grid gap-2 btn btn-outline-secondary btn-sm", type: 'button', method: :delete %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
 
 <%= link_to 'Homepage', home_index_path %>
 <%= link_to 'Add Address', new_user_address_path %>

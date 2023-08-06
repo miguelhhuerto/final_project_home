@@ -1,4 +1,4 @@
-<%= form_with model: @address, url: path, data: { controller: :location } do |form| %>
+<%= form_with model: @address, url: path, data: { turbo: false, controller: :location } do |form| %>
   <% if @address.errors.any? %>
     <ul>
       <% @address.errors.each do |error| %>
@@ -6,14 +6,15 @@
       <% end %>
     </ul>
   <% end %>
-  <div>
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+  
+  <div class="field">
+    <%= form.label "Address Type" %>
+    <%= form.collection_radio_buttons :genre, Address.genres.keys, :to_s, :to_s, { label: "Address Type" } %>
   </div>
 
   <div>
-    <%= form.label :street_address %>
-    <%= form.text_field :street_address %>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
   </div>
 
   <div>
