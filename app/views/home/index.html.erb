@@ -7,6 +7,8 @@
   <%= link_to 'Sign in', new_user_session_path %>
 <% end %>
 
+
 <%= link_to 'Edit Profile', edit_user_registration_path if current_user%>
 <%= link_to 'personal information', user_path if current_user %>
 <%= link_to 'Address', user_addresses_path(@user) if current_user %>
+<%= link_to 'Invite', user_invite_index_path if current_user %>

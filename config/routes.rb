@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: { registrations: 'users/registrations' }
   namespace :api do
     namespace :v1 do
       resources :regions, only: %i[index show], defaults: { format: :json } do
@@ -33,11 +33,14 @@ Rails.application.routes.draw do
   end
 
   constraints(ClientDomainConstraint.new) do
-        root 'home#index'
-        resources :home
-        resource :user do
-          resources :addresses, except: :show
-        end
-
+    root 'home#index'
+    resources :home
+    resource :user do
+      resources :addresses, except: :show
+      resources :invite, :only => [:index]
+      collection do
+        get :sign_up
+      end
     end
+  end
 end
