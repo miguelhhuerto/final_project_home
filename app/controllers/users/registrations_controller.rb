@@ -16,6 +16,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
         end
         cookies.delete(:promoter)
       end
+
+      if params[:promoter] # Check if a promoter (parent) email was provided
+        promoter = User.find_by(email: params[:promoter])
+        user.parent = promoter if promoter
+      end
     end
   end
 end

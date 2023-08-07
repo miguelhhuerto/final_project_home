@@ -11,9 +11,9 @@ class Address < ApplicationRecord
   private
 
   def single_default
-      if user.addresses.where(is_default: true).where.not(id: id).exists?
-        user.addresses.where.not(id: id).update(is_default: false)
-      end
+    if user.addresses.where(is_default: true).where.not(id: id).exists?
+      user.addresses.where.not(id: id).update(is_default: false)
+    end
   end
 
   def address_limit

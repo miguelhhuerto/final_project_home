@@ -1,4 +1,5 @@
 class Admin::SessionsController < Devise::SessionsController
+
     def new
         super
       end
@@ -13,3 +14,4 @@ class Admin::SessionsController < Devise::SessionsController
         super
       end
 end
+
