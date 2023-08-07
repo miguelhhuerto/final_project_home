@@ -12,9 +12,8 @@ class Address < ApplicationRecord
 
   def single_default
       if user.addresses.where(is_default: true).where.not(id: id).exists?
-        errors.add(:is_default, 'Only one address can be set as default.')
+        user.addresses.where.not(id: id).update(is_default: false)
       end
-    end
   end
 
   def address_limit
@@ -22,3 +21,5 @@ class Address < ApplicationRecord
       errors.add(:base, "You can have a maximum of 5 addresses.")
     end
   end
+
+end

@@ -4,7 +4,6 @@ class AddressesController < ApplicationController
 
   def index;
     @addresses = @user.addresses
-    
   end
 
   def new;
