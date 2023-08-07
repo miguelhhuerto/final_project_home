@@ -14,7 +14,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         if promoter
           user.update(parent_id: promoter.id)
         end
-        cookies.delete(:promoter) # Remove the promoter cookie after using it
+        cookies.delete(:promoter)
       end
     end
   end
