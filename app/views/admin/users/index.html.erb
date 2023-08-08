@@ -16,7 +16,7 @@
       <% if user.parent_id.present? %>
         <td> <%= User.find_by(id: user.parent_id).email%> </td>
       <% else %>
-      <td> <%""%> </td>
+      <td> <%=""%> </td>
       <% end %>
  
       <td><%= user.email %></td>

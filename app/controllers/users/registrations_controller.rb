@@ -13,11 +13,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
         promoter = User.find_by(email: promoter_email)
         if promoter
           user.update(parent_id: promoter.id)
+          promoter.increment!(:children_members, 1)
         end
         cookies.delete(:promoter)
       end
 
-      if params[:promoter] # Check if a promoter (parent) email was provided
+      if params[:promoter]
         promoter = User.find_by(email: params[:promoter])
         user.parent = promoter if promoter
       end
