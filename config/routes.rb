@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   constraints(AdminDomainConstraint.new) do
     namespace :admin do
       resources :users
+      resources :items
     end
 
     devise_scope :user do
