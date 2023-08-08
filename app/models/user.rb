@@ -19,7 +19,6 @@ class User < ApplicationRecord
 
   has_one :profile
   has_many :addresses
-  has_many :items
   belongs_to :parent, class_name: 'User', optional: true
   has_many :children, class_name: 'User', foreign_key: 'parent_id', dependent: :nullify
   accepts_nested_attributes_for :profile
