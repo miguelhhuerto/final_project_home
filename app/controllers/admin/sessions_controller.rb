@@ -9,12 +9,11 @@ class Admin::SessionsController < Devise::SessionsController
       if @user && @user.admin?
         super
     else
-      flash[:alert] = "You don't have permission to access this page."
+      flash[:alert] = "You don't have Administrative Permission to access this page."
       redirect_to new_user_session_path
     end
     end
   
-    # DELETE /clients/sign_out
     def destroy
       super
     end
