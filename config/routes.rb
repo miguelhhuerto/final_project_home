@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'categories/index'
+  get 'categories/new'
+  get 'categories/edit'
   devise_for :users, controllers: { registrations: 'users/registrations' }
   namespace :api do
     namespace :v1 do
@@ -20,6 +23,7 @@ Rails.application.routes.draw do
     namespace :admin do
       resources :users
       resources :items
+      resources :categories, except: :show
     end
 
     devise_scope :user do

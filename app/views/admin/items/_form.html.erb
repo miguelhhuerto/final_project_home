@@ -1,0 +1,45 @@
+
+<%= form_with model: item, url: admin_items_path do |form| %>
+<% if item.errors.any? %>
+    <ul>
+      <% @item.errors.each do |error| %>
+        <li><%= item.full_message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  <div>
+    <%= form.file_field :image %>
+  </div>
+
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+  <div>
+     <%= form.collection_check_boxes :category_ids, Category.all, :id, :name %>
+  </div>
+  <div>
+    <%= form.label :quantity %>
+    <%= form.text_field :quantity %>
+  </div>
+  <div>
+    <%= form.label :batch_count %>
+    <%= form.text_field :batch_count %>
+  </div>
+  <div>
+    <%= form.label :minimum_bets %>
+    <%= form.text_field :minimum_bets %>
+  </div>
+  <div class="field">
+    <%= form.label "Status" %>
+    <%= form.collection_radio_buttons :status, Item.statuses.keys, :to_s, :to_s, { label: "Status" } %>
+  </div>
+
+  <div>
+    <%= form.label :state %>
+    <%= form.text_field :state %>
+  </div>
+
+
+  <%= form.submit %>
+<% end %>
