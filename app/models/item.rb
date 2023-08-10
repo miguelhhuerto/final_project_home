@@ -5,6 +5,7 @@ class Item < ApplicationRecord
     mount_uploader :image, ImageUploader
     has_many :item_category_ships
     has_many :categories, through: :item_category_ships
+    has_many :bets
 
     include AASM
 
@@ -26,6 +27,9 @@ class Item < ApplicationRecord
 
     event :cancel do
       transitions from: [:started, :paused], to: :canceled
+      bets.where(state: 'betting').each do |bet|
+        bet.cancel!
+      end
     end
 
     

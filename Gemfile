@@ -13,6 +13,8 @@ gem 'carrierwave'
 
 gem 'rest-client'
 
+gem 'active_model_serializers'
+
 gem 'stimulus-rails'
 
 gem "rqrcode", "~> 2.0"

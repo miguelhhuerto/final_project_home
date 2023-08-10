@@ -11,3 +11,25 @@
 <%= link_to 'Users List', admin_users_path(@user) %>
 <%= link_to 'Item List', admin_items_path(@user) %>
 <%= link_to 'Category List', admin_categories_path(@user) %>
+
+
+
+
+<div id="search-form">
+  <%= form_tag admin_home_index_path, method: :get do %>
+    <%= text_field_tag :serial_number, params[:serial_number], placeholder: "Serial Number" %>
+    <%= text_field_tag :item_name, params[:item_name], placeholder: "Item Name" %>
+    <%= text_field_tag :email, params[:email], placeholder: "Email" %>
+    <%= select_tag :state, options_for_select(Item.aasm.states.map { |s| [s.name.to_s.humanize, s.name] }, params[:state]), prompt: "Select State" %>
+    <%= label_tag "Start Date" %>
+    <%= date_field_tag :start_date, params[:start_date] %>
+    <%= label_tag "End Date" %>
+    <%= date_field_tag :end_date, params[:end_date] %>
+    <%= submit_tag "Search" %>
+  <% end %>
+</div>
+
+
+<table>
+
+</table>

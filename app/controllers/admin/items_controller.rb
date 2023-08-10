@@ -1,5 +1,6 @@
 class Admin::ItemsController < ApplicationController
-  before_action :set_item, only: [:start, :pause, :end, :cancel]
+  before_action :set_item, only: [:start, :pause, :end, :cancel
+  before_action :items_with_bet, only: [:destroy]]
     def index
         @items=Item.all
     end
@@ -34,8 +35,12 @@ class Admin::ItemsController < ApplicationController
     end
     
     def destroy
-      @item.destroy
-      flash[:notice] = 'Item destroyed successfully'
+      if items_with_bet.empty?
+        @item.destroy
+        flash[:notice] = 'Item deleted successfully'
+      else
+        flash[:alert] = 'Selected Item cannot be deleted.'
+      end
       redirect_to admin_items_path
     end
 
@@ -56,6 +61,10 @@ class Admin::ItemsController < ApplicationController
     end
 
     private
+
+    def items_with_category
+      @bet.items
+    end
 
     def set_item
       @item = Item.find(params[:id])
