@@ -30,16 +30,14 @@
     <%= form.label :minimum_bets %>
     <%= form.text_field :minimum_bets %>
   </div>
+
+  <%= form.label :offline_at %>
+  <%= form.datetime_local_field :offline_at %>
+
   <div class="field">
     <%= form.label "Status" %>
     <%= form.collection_radio_buttons :status, Item.statuses.keys, :to_s, :to_s, { label: "Status" } %>
   </div>
-
-  <div>
-    <%= form.label :state %>
-    <%= form.text_field :state %>
-  </div>
-
 
   <%= form.submit %>
 <% end %>

@@ -21,8 +21,16 @@ Rails.application.routes.draw do
 
   constraints(AdminDomainConstraint.new) do
     namespace :admin do
+      resources :home
       resources :users
-      resources :items
+      resources :items do
+        member do
+          post :start
+          post :pause
+          post :end
+          post :cancel
+        end
+      end
       resources :categories, except: :show
     end
 

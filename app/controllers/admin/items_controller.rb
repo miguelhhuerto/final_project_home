@@ -1,4 +1,5 @@
 class Admin::ItemsController < ApplicationController
+  before_action :set_item, only: [:start, :pause, :end, :cancel]
     def index
         @items=Item.all
     end
@@ -23,7 +24,7 @@ class Admin::ItemsController < ApplicationController
     def edit; end
     
     def update
-      if @post.update(item_params)
+      if @item.update(item_params)
         flash[:notice] = 'Item updated successfully'
         redirect_to admin_items_path
       else
@@ -38,10 +39,26 @@ class Admin::ItemsController < ApplicationController
       redirect_to admin_items_path
     end
 
+    def start
+      redirect_to admin_items_path if @item.start!
+    end
+    
+    def pause
+      redirect_to admin_items_path if @item.pause!
+    end
+    
+    def end
+      redirect_to admin_items_path if @item.end!
+    end
+
+    def cancel
+      redirect_to admin_items_path if @item.cancel!
+    end
+
     private
 
     def set_item
-      @item = Items.find(params[:id])
+      @item = Item.find(params[:id])
     end
 
     def item_params

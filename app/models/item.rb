@@ -7,7 +7,6 @@ class Item < ApplicationRecord
     has_many :categories, through: :item_category_ships
 
     include AASM
-    after_create :assign_serial_number
 
     aasm column: :state do
       state :pending, initial: true
@@ -33,12 +32,12 @@ class Item < ApplicationRecord
   end
 
   def revise_quantity_and_batch_count
-    item.update(quantity: item.quantity + 1)
-    item.update(batch_count: item.batch_count - 1)
+    self.update(quantity: self.quantity + 1)
+    self.update(batch_count: self.batch_count - 1)
   end
 
   def allow_transition?
-    aasm.from_state == :paused || (item.quantity > 0 && item.status == "active" && Time.now < item.offline_at)
+    aasm.from_state == :paused || (self.quantity > 0 && self.status == "active" && Time.now < self.offline_at)
   end
 
 
@@ -48,7 +47,4 @@ class Item < ApplicationRecord
 
     private
      
-    def assign_serial_number
-      self.update(serial_number: "gem-#{id.to_s.rjust(9, '0')}")
-    end
 end
