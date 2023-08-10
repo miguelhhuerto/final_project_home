@@ -1,0 +1,17 @@
+<h1>Lottery Page</h1>
+
+<div id="category-buttons">
+  <button class="category-button active" data-category-id="all">All</button>
+  <% @categories.each do |category| %>
+    <button class="category-button" data-category-id="<%= category.id %>"><%= category.name %></button>
+  <% end %>
+</div>
+
+<table>
+  <% @items.each do |item| %>
+    <tr class="item-row" data-category-ids="<%= item.category_ids.join(',') %>">
+      <td><%= image_tag item.image.url if item.image.present? %></td>
+      <td><%= item.name %></td>
+    </tr>
+  <% end %>
+</table>

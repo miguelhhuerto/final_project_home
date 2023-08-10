@@ -48,6 +48,7 @@ Rails.application.routes.draw do
   constraints(ClientDomainConstraint.new) do
     root 'home#index'
     resources :home
+    resources :lottery
     resource :user do
       resources :addresses, except: :show
       resources :invite, :only => [:index]
