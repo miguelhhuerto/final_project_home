@@ -22,19 +22,37 @@ class Item < ApplicationRecord
     end
 
     event :end do
-      transitions from: :started, to: :ended
+      transitions from: :started, to: :ended, guard: :before_ended?, success: :pick_winner
     end
 
     event :cancel do
-      transitions from: [:started, :paused], to: :canceled
-      bets.where(state: 'betting').each do |bet|
-        bet.cancel!
-      end
+      transitions from: [:started, :paused], to: :canceled, success: :cancel_bets
     end
 
     
   end
 
+  def pick_winner
+    winner = self.bets.sample
+    winner.update(state: 'won')
+    bets.where.not(state: 'won').update(state: 'lost')
+    Winner.create(bet_id: winner.id, 
+                  user_id: winner.user_id,
+                  item_id: self.id,
+                  address_id: winner.user.addresses.where(is_default: true).name
+                 )
+  end
+
+  def before_ended?
+    self.bets.count >= self.minimum_bets
+  end
+
+  def cancel_bets
+    bets.where(state: 'betting').each do |bet|
+      bet.cancel!
+    end
+  end
+  
   def revise_quantity_and_batch_count
     self.update(quantity: self.quantity + 1)
     self.update(batch_count: self.batch_count - 1)
