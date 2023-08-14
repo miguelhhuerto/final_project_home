@@ -24,6 +24,7 @@ Rails.application.routes.draw do
     namespace :admin do
       resources :home
       resources :users
+      resources :offers, only: [:index]
       resources :items do
         member do
           post :start

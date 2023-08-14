@@ -1,0 +1,16 @@
+<h1>Offer Page</h1>
+
+
+<%= form_tag admin_offers_path, method: :get, class: "search-form" do %>
+  <div class="search-field">
+    <%= label_tag :genre, "Genre" %>
+    <%= select_tag :genre, options_for_select(Offer.pluck(:genre).uniq, params[:genre]) %>
+  </div>
+
+  <div class="search-field">
+    <%= label_tag :status, "Status" %>
+    <%= select_tag :status, options_for_select(Offer.pluck(:status).uniq, params[:status]) %>
+  </div>
+
+<%= submit_tag "Search" %>
+<% end %>

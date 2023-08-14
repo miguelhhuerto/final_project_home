@@ -11,6 +11,7 @@
 <%= link_to 'Users List', admin_users_path(@user) %>
 <%= link_to 'Item List', admin_items_path(@user) %>
 <%= link_to 'Category List', admin_categories_path(@user) %>
+<%= link_to 'Offers', admin_offers_path(@user)%>
 <div>
 <div id="search-form">
   <%= form_tag admin_home_index_path, method: :get do %>
