@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   get 'categories/index'
   get 'categories/new'
   get 'categories/edit'
+
   devise_for :users, controllers: { registrations: 'users/registrations' }
   namespace :api do
     namespace :v1 do
@@ -29,7 +30,7 @@ Rails.application.routes.draw do
           post :pause
           post :end
           post :cancel
-        end
+        end      
       end
       resources :categories, except: :show
     end
@@ -48,7 +49,9 @@ Rails.application.routes.draw do
   constraints(ClientDomainConstraint.new) do
     root 'home#index'
     resources :home
-    resources :lottery
+    resources :lottery, only: [:index, :show, :create] do
+      resources :bets, only: [:create]
+    end
     resource :user do
       resources :addresses, except: :show
       resources :invite, :only => [:index]

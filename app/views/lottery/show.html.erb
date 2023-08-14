@@ -1,0 +1,30 @@
+<%= 'Lottery Item:' + @item.name%>
+
+</br>
+<%= image_tag @item.image.url if @item.image.present? %></p>
+
+</br>
+
+<div>
+<%= form_with(model: @bet, url: lottery_bets_path(@item), method: :post) do |form| %>
+  <%= form.hidden_field :item_id, value: @item.id %>
+  <%= form.label :coins %>
+  <%= form.number_field :coins %>
+  <%= form.submit "Place Bet" %>
+<% end %>
+</div>
+
+<div>
+<table>
+  <thead>
+    <td> Serial Number </td>
+  </thead>
+  <% @item.bets.each do |bet| %>
+    <%if bet.user == current_user%>
+    <tr>
+      <td><%= bet.serial_number  %></td>
+    </tr>
+    <% end %>
+  <% end %>
+</table>
+</div>

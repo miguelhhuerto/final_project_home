@@ -45,7 +45,7 @@ class Bet < ApplicationRecord
     end
     
     def subtract_coin
-      user.decrement(:coins, 1)
+      user.decrement(:coins)
       user.save
     end
 end

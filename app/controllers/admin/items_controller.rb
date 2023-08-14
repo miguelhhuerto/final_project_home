@@ -1,6 +1,6 @@
 class Admin::ItemsController < ApplicationController
-  before_action :set_item, only: [:start, :pause, :end, :cancel
-  before_action :items_with_bet, only: [:destroy]]
+  before_action :set_item, only: [:start, :pause, :end, :cancel]
+  before_action :items_with_bet, only: [:destroy]
     def index
         @items=Item.all
     end

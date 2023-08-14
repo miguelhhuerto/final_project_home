@@ -11,14 +11,39 @@
 <%= link_to 'Users List', admin_users_path(@user) %>
 <%= link_to 'Item List', admin_items_path(@user) %>
 <%= link_to 'Category List', admin_categories_path(@user) %>
-
-
-
-
+<div>
 <div id="search-form">
   <%= form_tag admin_home_index_path, method: :get do %>
     <%= text_field_tag :serial_number, params[:serial_number], placeholder: "Serial Number" %>
-    <%= text_field_tag :item_name, params[:item_name], placeholder: "Item Name" %>
+        <%= submit_tag "Search" %>
+  <% end %>
+</div>
+<table>
+  <thead>
+    <tr>
+      <th>Serial Number</th>
+      <th>Item</th>
+      <th>User</th>
+      <th>Email</th>
+      <th>Created At</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @bets.each do |bet| %>
+      <tr>
+        <td><%= bet.serial_number %></td>
+        <td><%= bet.item.name %></td>
+        <td><%= bet.user.username %></td>
+        <td><%= bet.user.email %></td>
+        <td><%= bet.created_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+
+<div id="search-form">
+  <%= form_tag admin_home_index_path, method: :get do %>
     <%= text_field_tag :email, params[:email], placeholder: "Email" %>
     <%= select_tag :state, options_for_select(Item.aasm.states.map { |s| [s.name.to_s.humanize, s.name] }, params[:state]), prompt: "Select State" %>
     <%= label_tag "Start Date" %>
@@ -28,8 +53,49 @@
     <%= submit_tag "Search" %>
   <% end %>
 </div>
-
-
 <table>
-
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Username</th>
+      <th>Role</th>
+      <th>Coins</th>
+    </tr>
+  </thead>
+    <% @users.each do |user| %>
+    <tr>
+        <td><%= user.email %></td>
+        <td><%= user.username %></td>
+        <td><%= user.role %></td>
+        <td><%= user.coins %></td>
+    </tr>
+    <% end %>
 </table>
+
+<%# t.integer "role", default: 0
+    t.string "phone_number"
+    t.integer "coins"
+    t.float "total_deposit"
+    t.integer "children_members"
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "image"
+    t.string "parent_id" %>
+<%# 
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>User Email</th>
+      <th>State</th>
+      <th>Created At</th>
+    </tr>
+  </thead>
+  
+  <tbody>
+    <% @items.each do |item| %>
+        <%# <td><%= item.name %>
+    <%# <% end %> 
