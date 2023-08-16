@@ -22,13 +22,20 @@
   </div>
 
   <div>
-    <%= form.label :coins %>
-    <%= form.number_field :coins %>
+    <%= form.label :coin %>
+    <%= form.number_field :coin %>
+  </div>
+
+  <div class="field">
+    <%= form.label "Genre" %>
+    <%= form.collection_radio_buttons :genre, Offer.genres.keys, :to_s, :to_s, { label: "Genre" } %>
+  </div>
 
   <div class="field">
     <%= form.label "Status" %>
     <%= form.collection_radio_buttons :status, Offer.statuses.keys, :to_s, :to_s, { label: "Status" } %>
   </div>
+  
 
   <%= form.submit %>
 <% end %>

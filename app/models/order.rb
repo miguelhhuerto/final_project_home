@@ -1,9 +1,9 @@
 class Order < ApplicationRecord
     belongs_to :user
     belongs_to :offer
-    enum status: { deposit: 0, increase: 1, deduct: 2, bonus: 3, share: 4}
-
-
+    enum genre: { deposit: 0, increase: 1, deduct: 2, bonus: 3, share: 4}
+    validate :amount_for_genre
+    
 include AASM
 pending # initial
 submitted
@@ -61,5 +61,13 @@ paid
 
   def allow_transition?
     user.coins >= amount
+  end
+
+  private
+
+  def amount_for_genre
+    if genre != 'deposit' && (amount.nil? || amount <= 0)
+      errors.add(:amount, "must be greater than 0 for non-deposit genre")
+    end
   end
 end

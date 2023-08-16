@@ -1,4 +1,5 @@
 class Admin::OffersController < ApplicationController
+  before_action :set_offer, only: [:edit, :update, :destroy]
     
       def index
         @offers=Offer.all
@@ -6,26 +7,27 @@ class Admin::OffersController < ApplicationController
       
       def new;
         @offer = Offer.new
-
+        @offers = Offer.all
+      
         if params[:genre].present?
-            @offers = @offers.where(genre: params[:genre])
-          end
+          @offers = @offers.where(genre: params[:genre])
+        end
       
         if params[:status].present?
           @offers = @offers.where(status: params[:status])
         end
       end
       
-    #   def create
-    #     @item = Item.new(item_params)
-    #     if @item.save
-    #       flash[:notice] = 'Post created successfully'
-    #       redirect_to admin_items_path
-    #     else
-    #       flash.now[:alert] = 'Post create failed'
-    #       render :new, status: :unprocessable_entity
-    #     end
-    #   end
+      def create
+        @offer = Offer.new(offer_params)
+        if @offer.save
+          flash[:notice] = 'Offer created successfully'
+          redirect_to admin_offers_path
+        else
+          flash.now[:alert] = 'Offer create failed'
+          render :new, status: :unprocessable_entity
+        end
+      end
       
       def show; end
   
@@ -44,24 +46,20 @@ class Admin::OffersController < ApplicationController
       end
       
       def destroy
-        if items_with_bet.empty?
-          @item.destroy
-          flash[:notice] = 'Item deleted successfully'
-        else
-          flash[:alert] = 'Selected Item cannot be deleted.'
-        end
-        redirect_to admin_offers_path
+          @offer.destroy
+          flash[:notice] = 'Offer deleted successfully'
+          redirect_to admin_offers_path
       end
 
   
       private
   
-      def set_item
-        @item = Item.find(params[:id])
+      def set_offer
+        @offer = Offer.find(params[:id])
       end
   
-      def item_params
-        params.require(:item).permit(:image, :name, :quantity, :batch_count, :minimum_bets, :online_at, :offline_at, :start_at, :status, :state, category_ids:[])
+      def offer_params
+        params.require(:offer).permit(:image, :name, :genre, :amount, :coin, :status)
       end
   end
   
