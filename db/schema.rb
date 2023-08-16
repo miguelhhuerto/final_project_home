@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_14_054820) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_15_080707) do
   create_table "address_barangays", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "city_id"
     t.string "code"
@@ -108,9 +108,22 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_14_054820) do
     t.string "image"
     t.string "name"
     t.string "genre"
-    t.string "status"
+    t.string "status", default: "0"
     t.integer "amount"
     t.integer "coin"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "orders", charset: "utf8mb4", force: :cascade do |t|
+    t.string "user_id"
+    t.string "offer_id"
+    t.string "serial_number"
+    t.string "state"
+    t.integer "amount"
+    t.integer "coin"
+    t.string "remarks"
+    t.integer "genre", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -131,6 +144,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_14_054820) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_profiles_on_user_id"
+  end
+
+  create_table "shops", charset: "utf8mb4", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", charset: "utf8mb4", force: :cascade do |t|

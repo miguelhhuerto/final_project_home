@@ -1,4 +1,4 @@
-<h1>Offer Page</h1>
+<h1>Offer Search Page</h1>
 
 
 <%= form_tag admin_offers_path, method: :get, class: "search-form" do %>
@@ -7,10 +7,35 @@
     <%= select_tag :genre, options_for_select(Offer.pluck(:genre).uniq, params[:genre]) %>
   </div>
 
-  <div class="search-field">
-    <%= label_tag :status, "Status" %>
-    <%= select_tag :status, options_for_select(Offer.pluck(:status).uniq, params[:status]) %>
-  </div>
+<%= select_tag :status, options_for_select(Offer.statuses.keys.map { |status| [status.titleize, status] }, params[:status]) %>
 
 <%= submit_tag "Search" %>
 <% end %>
+
+<h1>Offer List</h1>
+<%= link_to 'New', new_admin_offer_path %>
+  <table>
+    <thead>
+      <td>Image</td>
+      <td>Name</td>
+      <td>Genre</td>
+      <td>Amount</td>
+      <td>Coins</td>
+      <td>Status</td>
+    </thead>
+    <% @offers.each do |offer| %>
+      <tr>
+        <td><%= image_tag offer.image.url if offer.image.present? %></td>
+        <td><%= offer.name %></td>
+        <td><%= offer.pluck(:genre).join(',') %></td>
+        <td><%= offer.amount %></td>
+        <td><%= offer.coins %></td>
+        <td><%= offer.status %></td>
+        <td><%= item.online_at %></td>
+        <td><%= item.offline_at %></td>
+        <td><%= item.start_at %></td>
+        <td><%= item.status %></td>
+        <td><%= item.state %></td>
+        <td>
+    <%end%>
+  </table>

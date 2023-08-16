@@ -24,7 +24,7 @@ Rails.application.routes.draw do
     namespace :admin do
       resources :home
       resources :users
-      resources :offers, only: [:index]
+      resources :offers
       resources :items do
         member do
           post :start
@@ -53,6 +53,7 @@ Rails.application.routes.draw do
     resources :lottery, only: [:index, :show, :create] do
       resources :bets, only: [:create]
     end
+    resource :shop
     resource :user do
       resources :addresses, except: :show
       resources :invite, :only => [:index]

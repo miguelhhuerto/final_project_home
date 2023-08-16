@@ -35,10 +35,10 @@ class Admin::OffersController < ApplicationController
       
       def update
         if @offer.update(offer_params)
-          flash[:notice] = 'Item updated successfully'
-          redirect_to admin_items_path
+          flash[:notice] = 'Offer updated successfully'
+          redirect_to admin_offers_path
         else
-          flash.now[:alert] = 'Item update failed'
+          flash.now[:alert] = 'Offer update failed'
           render :edit, status: :unprocessable_entity
         end
       end
@@ -50,7 +50,7 @@ class Admin::OffersController < ApplicationController
         else
           flash[:alert] = 'Selected Item cannot be deleted.'
         end
-        redirect_to admin_items_path
+        redirect_to admin_offers_path
       end
 
   

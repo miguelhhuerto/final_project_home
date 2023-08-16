@@ -1,0 +1,34 @@
+
+<%= form_with model: offer, url: admin_offers_path do |form| %>
+<% if offer.errors&.any? %>
+  <ul>
+    <% offer.errors.each do |error| %>
+      <li><%= error.full_message %></li>
+    <% end %>
+  </ul>
+  <% end %>
+  <div>
+    <%= form.file_field :image %>
+  </div>
+
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :amount %>
+    <%= form.number_field :amount %>
+  </div>
+
+  <div>
+    <%= form.label :coins %>
+    <%= form.number_field :coins %>
+
+  <div class="field">
+    <%= form.label "Status" %>
+    <%= form.collection_radio_buttons :status, Offer.statuses.keys, :to_s, :to_s, { label: "Status" } %>
+  </div>
+
+  <%= form.submit %>
+<% end %>
