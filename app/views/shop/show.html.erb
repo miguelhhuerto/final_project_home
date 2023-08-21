@@ -1,0 +1,22 @@
+<%= 'Order: ' + @offer.name%>
+
+
+</br>
+<%= image_tag @offer.image.url if @offer.image.present? %></p>
+
+</br>
+
+<div>
+    <%= form_for @order, url: orders_path do |form| %>
+  <%= form.hidden_field :offer_id, value: @offer.id %>
+  <%= form.label :genre %>
+  <%= form.text_field :genre %>
+  <%= form.label :amount %>
+  <%= form.number_field :amount %>
+  <%= form.label :coin %>
+  <%= form.number_field :coin %>
+  <%= form.label :remarks %>
+  <%= form.text_area :remarks %>
+  <%= form.submit 'Place Order' %>
+<% end %>
+</div>
