@@ -3,7 +3,7 @@ class Bet < ApplicationRecord
     belongs_to :item
         
     after_create :subtract_coin
-    after_create :assign_serial_number
+    after_create :assign_batch
 
     include AASM
     
@@ -33,16 +33,10 @@ class Bet < ApplicationRecord
     
     private
 
- 
-    def assign_serial_number
-        number_count = format('%04d', item.batch_count + 1)
-        formatted_date = Time.current.strftime('%y%m%d')
-        item_id = item.id
-        batch_count = item.batch_count
-
-        serial_number = "#{formatted_date}-#{item_id}-#{batch_count}-#{number_count}"
-        self.update(serial_number: serial_number)
+    def assign_batch
+      self.batch_count = item.batch_count
     end
+
     
     def subtract_coin
       user.decrement(:coins)

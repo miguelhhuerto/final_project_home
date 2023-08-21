@@ -2,8 +2,12 @@ class Admin::HomeController < ApplicationController
   before_action :set_bets, only: [:index]
   before_action :set_users, only: [:index]
   def index
-    @bets
-    @users
+    if params[:start_date].present? && params[:end_date].present?
+      start_date = Date.parse(params[:start_date])
+      end_date = Date.parse(params[:end_date])
+      @items = @items.where(created_at: start_date..end_date)
+    end
+    
   end
 
   private
