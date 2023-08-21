@@ -12,13 +12,21 @@
 <%= link_to 'Item List', admin_items_path(@user) %>
 <%= link_to 'Category List', admin_categories_path(@user) %>
 <%= link_to 'Offers', admin_offers_path(@user)%>
+<%= link_to 'Orders', admin_orders_path(@user)%>
 <div>
 <div id="search-form">
   <%= form_tag admin_home_index_path, method: :get do %>
     <%= text_field_tag :serial_number, params[:serial_number], placeholder: "Serial Number" %>
-        <%= submit_tag "Search" %>
+    <%= text_field_tag :email, params[:email], placeholder: "Email" %>
+    <%= select_tag :state, options_for_select(Bet.aasm.states.map { |s| [s.name.to_s.humanize, s.name] }, params[:state]), prompt: "Select State" %>
+    <%= label_tag "Start Date" %>
+    <%= date_field_tag :start_date, params[:start_date] %>
+    <%= label_tag "End Date" %>
+    <%= date_field_tag :end_date, params[:end_date] %>
+    <%= submit_tag "Search" %>
   <% end %>
 </div>
+
 <table>
   <thead>
     <tr>
@@ -26,7 +34,9 @@
       <th>Item</th>
       <th>User</th>
       <th>Email</th>
+      <th>Status</th>
       <th>Created At</th>
+      <th>Action</th>
     </tr>
   </thead>
   <tbody>
@@ -36,67 +46,15 @@
         <td><%= bet.item.name %></td>
         <td><%= bet.user.username %></td>
         <td><%= bet.user.email %></td>
+        <td><%= bet.state%>
         <td><%= bet.created_at %></td>
+        <td><%if bet.state == 'won' %>
+          <td><%= button_to 'Claim Prize', claim_user_winning_path(winner), method: :patch if winner.may_claim? %></td>
+        <%end%>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 </div>
 
-<div id="search-form">
-  <%= form_tag admin_home_index_path, method: :get do %>
-    <%= text_field_tag :email, params[:email], placeholder: "Email" %>
-    <%= select_tag :state, options_for_select(Item.aasm.states.map { |s| [s.name.to_s.humanize, s.name] }, params[:state]), prompt: "Select State" %>
-    <%= label_tag "Start Date" %>
-    <%= date_field_tag :start_date, params[:start_date] %>
-    <%= label_tag "End Date" %>
-    <%= date_field_tag :end_date, params[:end_date] %>
-    <%= submit_tag "Search" %>
-  <% end %>
-</div>
-<table>
-  <thead>
-    <tr>
-      <th>Email</th>
-      <th>Username</th>
-      <th>Role</th>
-      <th>Coins</th>
-    </tr>
-  </thead>
-    <% @users.each do |user| %>
-    <tr>
-        <td><%= user.email %></td>
-        <td><%= user.username %></td>
-        <td><%= user.role %></td>
-        <td><%= user.coins %></td>
-    </tr>
-    <% end %>
-</table>
-
-<%# t.integer "role", default: 0
-    t.string "phone_number"
-    t.integer "coins"
-    t.float "total_deposit"
-    t.integer "children_members"
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "image"
-    t.string "parent_id" %>
-<%# 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>User Email</th>
-      <th>State</th>
-      <th>Created At</th>
-    </tr>
-  </thead>
-  
-  <tbody>
-    <% @items.each do |item| %>
-        <%# <td><%= item.name %>
-    <%# <% end %> 
