@@ -1,0 +1,9 @@
+<table>
+  <% @bets.each do |bet| %>
+      <td><%= bet.serial_number%></td>
+      <td><%= bet.coins %></td>
+      <td><%= bet.created_at %></td>
+      <td><%= bet.state %></td>
+    </tr>
+  <% end %>
+</table>

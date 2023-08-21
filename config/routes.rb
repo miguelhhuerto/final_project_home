@@ -27,12 +27,30 @@ Rails.application.routes.draw do
       resources :offers
       resources :items do
         member do
-          post :start
-          post :pause
-          post :end
-          post :cancel
+          patch :start
+          patch :pause
+          patch :end
+          patch :cancel
         end      
       end
+
+      resources :winners
+        member do
+          patch :submit
+          patch :pay
+          patch :ship
+          patch :deliver
+          patch :publish
+          patch :remove_publish
+        end
+        
+      resources :orders do
+        member do
+          patch :pay
+          patch :cancel
+        end
+      end
+
       resources :categories, except: :show
     end
 
@@ -50,12 +68,23 @@ Rails.application.routes.draw do
   constraints(ClientDomainConstraint.new) do
     root 'home#index'
     resources :home
+    resources :shop, only: [:index, :show]
+    resources :orders, only: [:create]
+    
+    
     resources :lottery, only: [:index, :show, :create] do
       resources :bets, only: [:create]
     end
-    resource :shop
     resource :user do
       resources :addresses, except: :show
+      resources :lottery_history, only: [:index]
+      resources :order_history, only: [:index]
+      resources :winnings, only: [:index] do
+        member do
+          patch :claim
+        end
+      end
+      resources :children_members, only: [:index]
       resources :invite, :only => [:index]
       collection do
         get :sign_up

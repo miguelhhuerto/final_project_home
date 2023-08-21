@@ -1,0 +1,10 @@
+<table>
+  <% @orders.each do |order| %>
+      <td><%= order.serial_number %></td>
+      <td><%= order.amount %></td>
+      <td><%= order.coins %></td>
+      <td><%= order.created_at %></td>
+      <td><%= order.state %></td>
+    </tr>
+  <% end %>
+</table>

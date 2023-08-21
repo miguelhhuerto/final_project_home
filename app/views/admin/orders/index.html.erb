@@ -1,0 +1,69 @@
+<h1> Order List </h1>
+<div id="search-form">
+  <%= form_tag admin_orders_path, method: :get do %>
+    <%= text_field_tag :serial_number, params[:serial_number], placeholder: "Serial Number" %>
+    <%= text_field_tag :email, params[:email], placeholder: "Email" %>
+    <%= select_tag :state, options_for_select(Order.aasm.states.map { |s| [s.name.to_s.humanize, s.name] }, params[:state]), prompt: "Select State" %>
+    <%= select_tag :genre, options_for_select(Order.genres.map { |key, value| [key.to_s.titleize, value] }, params[:genre]), prompt: "Select Genre" %>
+    <%= select_tag :offer_id, options_from_collection_for_select(Offer.all, :id, :name, params[:offer_id]), include_blank: true, prompt: "Select Offer" %>
+    <%= label_tag "Start Date" %>
+    <%= date_field_tag :start_date, params[:start_date] %>
+    <%= label_tag "End Date" %>
+    <%= date_field_tag :end_date, params[:end_date] %>
+    <%= submit_tag "Search" %>
+  <% end %>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Serial Number</th>
+      <th>Email</th>
+      <th>Genre</th>
+      <th>State</th>
+      <th>Offer</th>
+      <th>Created At</th>
+      <th>Amount<th>
+      <th>Coins<th>
+      <th>Fee<th>
+      <th>Action<th>
+    </tr>
+  </thead>
+  <tbody>
+    <% total_amount = 0 %>
+    <% total_coins = 0 %>
+    <% total_fee = 0 %>
+    <% @orders.each do |order| %>
+      <% total_amount += order.amount %>
+      <% total_coins += order.coin %>
+      <% total_fee += (total_amount * total_coins) %>
+      <tr>
+        <td><%= order.serial_number %></td>
+        <td><%= order.user.email %></td>
+        <td><%= order.genre %></td>
+        <td><%= order.state %></td>
+        <td><%= order.offer.name%></td>
+        <td><%= order.created_at %></td>
+        <td><%= order.amount %></td>
+        <td><%= order.coin %></td>
+        <td><%= order.amount * order.coin %></td>
+        <td><%= button_to 'Pay', pay_admin_order_path(order), method: :patch if order.may_pay? %>
+        <td><%= button_to 'Cancel', cancel_admin_order_path(order), method: :patch if order.may_cancel? %> </td>
+      </tr>
+    <% end %>
+
+    <tr>
+      <td>Total Amount:</td>
+      <td><%= total_amount %></td>
+    </tr>
+    <tr>
+      <td>Total Coins:</td>
+      <td><%= total_coins %></td>
+    </tr>
+    <tr>
+      <td>Total Fee:</td>
+      <td><%= total_fee %></td>
+    </tr>
+  </tbody>
+ 
+</table>
