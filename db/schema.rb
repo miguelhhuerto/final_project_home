@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_16_121140) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_21_065845) do
   create_table "address_barangays", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "city_id"
     t.string "code"
@@ -92,7 +92,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_16_121140) do
     t.string "image"
     t.string "name"
     t.integer "quantity"
-    t.integer "batch_count"
+    t.integer "batch_count", default: 0
     t.integer "minimum_bets"
     t.datetime "online_at"
     t.datetime "offline_at"
@@ -110,7 +110,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_16_121140) do
     t.integer "genre", default: 0
     t.integer "status", default: 0
     t.integer "amount"
-    t.integer "coin"
+    t.integer "coins"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -121,7 +121,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_16_121140) do
     t.string "serial_number"
     t.string "state"
     t.integer "amount"
-    t.integer "coin"
+    t.integer "coins"
     t.string "remarks"
     t.integer "genre", default: 0
     t.datetime "created_at", null: false
