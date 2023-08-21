@@ -9,6 +9,7 @@
 
 <%= link_to 'Edit', edit_user_registration_path(@user) %>
 <%= link_to 'Users List', admin_users_path(@user) %>
+<%= link_to 'Winners List', admin_winners_path(@user) %>
 <%= link_to 'Item List', admin_items_path(@user) %>
 <%= link_to 'Category List', admin_categories_path(@user) %>
 <%= link_to 'Offers', admin_offers_path(@user)%>
@@ -36,7 +37,7 @@
       <th>Email</th>
       <th>Status</th>
       <th>Created At</th>
-      <th>Action</th>
+
     </tr>
   </thead>
   <tbody>
@@ -48,10 +49,7 @@
         <td><%= bet.user.email %></td>
         <td><%= bet.state%>
         <td><%= bet.created_at %></td>
-        <td><%if bet.state == 'won' %>
-          <td><%= button_to 'Claim Prize', claim_user_winning_path(winner), method: :patch if winner.may_claim? %></td>
-        <%end%>
-        </td>
+
       </tr>
     <% end %>
   </tbody>

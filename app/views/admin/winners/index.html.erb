@@ -1,0 +1,47 @@
+<h1>Winners Index Page</h1>
+
+<div id="search-form">
+  <%= form_tag admin_home_index_path, method: :get do %>
+    <%= text_field_tag :serial_number, params[:serial_number], placeholder: "Serial Number" %>
+    <%= text_field_tag :email, params[:email], placeholder: "Email" %>
+    <%= select_tag :state, options_for_select(Winner.aasm.states.map { |s| [s.name.to_s.humanize, s.name] }, params[:state]), prompt: "Select State" %>
+    <%= label_tag "Start Date" %>
+    <%= date_field_tag :start_date, params[:start_date] %>
+    <%= label_tag "End Date" %>
+    <%= date_field_tag :end_date, params[:end_date] %>
+    <%= submit_tag "Search" %>
+  <% end %>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Serial Number</th>
+      <th>Email</th>
+      <th>State</th>
+      <th>Created At</th>
+      <th>Action</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <% @winners.each do |winner| %>
+      <tr>
+        <td><%= winner.bet.serial_number %></td>
+        <td><%= winner.bet.user.email %></td>
+        <td><%= winner.state%>
+        <td><%= winner.bet.created_at %></td>
+        <td>
+          <%= button_to 'Submit', submit_admin_winner_path(winner), method: :patch if winner.may_submit? %>
+          <%= button_to 'Pay', pay_admin_winner_path(winner), method: :patch if winner.may_pay? %>
+          <%= button_to 'Ship', ship_admin_winner_path(winner), method: :patch if winner.may_ship? %>
+          <%= button_to 'Deliver', deliver_admin_winner_path(winner), method: :patch if winner.may_deliver? %>
+          <%= button_to 'Publish', publish_admin_winner_path(winner), method: :patch if winner.may_publish? %>
+          <%= button_to 'Remove Publish', remove_publish_admin_winner_path(winner), method: :patch if winner.may_remove_publish? %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+

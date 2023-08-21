@@ -34,7 +34,7 @@ Rails.application.routes.draw do
         end      
       end
 
-      resources :winners
+      resources :winners do    
         member do
           patch :submit
           patch :pay
@@ -43,7 +43,7 @@ Rails.application.routes.draw do
           patch :publish
           patch :remove_publish
         end
-        
+      end
       resources :orders do
         member do
           patch :pay

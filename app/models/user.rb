@@ -22,6 +22,7 @@ class User < ApplicationRecord
   has_many :bets
   has_many :offers
   has_many :orders
+  has_many :winners
   belongs_to :parent, class_name: 'User', optional: true
   has_many :children, class_name: 'User', foreign_key: 'parent_id', dependent: :nullify
   accepts_nested_attributes_for :profile

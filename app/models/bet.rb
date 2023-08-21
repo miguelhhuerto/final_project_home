@@ -1,7 +1,7 @@
 class Bet < ApplicationRecord
     belongs_to :user
     belongs_to :item
-        
+    has_many :winners
     after_create :subtract_coin
     after_create :assign_batch
 
