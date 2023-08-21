@@ -1,6 +1,7 @@
 class Admin::OffersController < ApplicationController
   before_action :set_offer, only: [:edit, :update, :destroy]
-    
+  before_action :offer_params, only: [:create]
+  
       def index
         @offers=Offer.all
       end
@@ -29,7 +30,9 @@ class Admin::OffersController < ApplicationController
         end
       end
       
-      def show; end
+      def show
+        @offer = Offer.find(params[:id])
+      end
   
       def edit
         @offer = Offer.find(params[:id])
@@ -55,7 +58,9 @@ class Admin::OffersController < ApplicationController
       private
   
       def set_offer
-        @offer = Offer.find(params[:id])
+        @offer = Offer.find(params[:offer_id])
+        puts "Offer ID: #{params[:offer_id]}"
+        puts "Offer: #{@offer.inspect}"
       end
   
       def offer_params
