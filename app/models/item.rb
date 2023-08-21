@@ -6,7 +6,8 @@ class Item < ApplicationRecord
     has_many :item_category_ships
     has_many :categories, through: :item_category_ships
     has_many :bets
-
+    has_many :winners
+    
     include AASM
 
     aasm column: :state do
@@ -33,18 +34,19 @@ class Item < ApplicationRecord
   end
 
   def pick_winner
-    winner = self.bets.sample
+    batch_bets = self.bets.where(batch_count: self.batch_count)
+    winner = batch_bets.sample
     winner.update(state: 'won')
     bets.where.not(state: 'won').update(state: 'lost')
     Winner.create(bet_id: winner.id, 
                   user_id: winner.user_id,
                   item_id: self.id,
-                  address_id: winner.user.addresses.where(is_default: true).name
+                  item_batch_count: winner.batch_count
                  )
   end
 
   def before_ended?
-    self.bets.count >= self.minimum_bets
+    (self.bets.count) / (self.minimum_bets)*(self.batch_count) >= 1
   end
 
   def cancel_bets
@@ -54,19 +56,22 @@ class Item < ApplicationRecord
   end
   
   def revise_quantity_and_batch_count
-    self.update(quantity: self.quantity + 1)
-    self.update(batch_count: self.batch_count - 1)
+    self.update(quantity: self.quantity - 1)
+    self.update(batch_count: self.batch_count + 1)
   end
-
-  def allow_transition?
-    aasm.from_state == :paused || (self.quantity > 0 && self.status == "active" && Time.now < self.offline_at)
-  end
-
 
   def destroy
-    update(deleted_at: Time.current)
-  end 
+    if self.bets.count == 0
+      update(deleted_at: Time.current)
+    else
+      errors.add(:base, 'Cannot Delete Items With Bets')
+    end
+  end
+  
 
-    private
-     
+  private
+
+  def allow_transition?
+    self.quantity > 0 && self.status == "active" && Time.current < self.offline_at
+  end
 end
