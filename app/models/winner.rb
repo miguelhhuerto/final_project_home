@@ -1,12 +1,12 @@
 class Winner < ApplicationRecord
     include AASM
-
+    belongs_to :item
     aasm column: :state do
       state :won, initial: true
       state :claimed, :submitted, :paid, :shipped, :delivered, :shared, :published, :remove_published
 
     event :claim do
-      transitions from: :won, to: :claimed, guard: :allow_transition?, success: :revise_quantity_and_batch_count
+      transitions from: :won, to: :claimed
     end
 
     event :submit do
