@@ -14,7 +14,10 @@
       <td><%= winner.paid_at %></td>
       <td><%= winner.item_batch_count %></td>
       <td><%= winner.address_id %></td>
-      <td><%= button_to 'Claim Prize', claim_user_winning_path(winner), method: :patch if winner.may_claim? %></td>
+      <td>
+          <%= button_to 'Claim Prize', claim_user_winning_path(winner), method: :patch if winner.may_claim? %>
+          <%= button_to 'Share Feedback', share_user_winning_path(winner), method: :patch if winner.may_share? %>
+      </td>
     </tr>
   <% end %>
 </table>
