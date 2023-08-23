@@ -1,0 +1,2 @@
+module AdminInvitesHelper
+end

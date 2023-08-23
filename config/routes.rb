@@ -45,7 +45,7 @@ Rails.application.routes.draw do
             end
           end
         end
-
+      resources :admin_invites, only: [:index]
       resources :offers
       resources :items do
         member do
