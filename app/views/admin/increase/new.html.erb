@@ -1,0 +1,23 @@
+<h1>Hi</h1>
+
+<%= form_with model: @order, url: admin_users_path, data: { turbo: false } do |form| %>
+
+  <div>
+    <%= form.label :coins %>
+    <%= form.number_field :coins %>
+  </div>
+
+  <div class="dropdown">
+    <%= form.label "Genre" %>
+    <%= form.collection_select :genre, Order.genres.keys, :to_s, :to_s, { label: "Genres" } %>
+  </div>
+
+  </div>
+   <div>
+    <%= form.label :remarks %>
+    <%= form.text_area :remarks %>
+  </div>
+
+  
+  <%= form.submit %>
+<% end %>

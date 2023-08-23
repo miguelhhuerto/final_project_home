@@ -2,6 +2,7 @@
 <table class="table table-striped table-hover">
   <thead>
   <td>Parent E-mail</td>
+  <td>Username</td>
   <td>E-mail</td>
   <td>Total Deposit</td>
   <td>Members Total Deposit</td>
@@ -18,7 +19,7 @@
       <% else %>
       <td> <%=""%> </td>
       <% end %>
- 
+      <td><%= link_to user.username, new_admin_user_orders_increase_path(user.id)%></td>
       <td><%= user.email %></td>
       <td></td>
       <td></td>

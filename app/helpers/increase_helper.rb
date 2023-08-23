@@ -1,0 +1,2 @@
+module IncreaseHelper
+end

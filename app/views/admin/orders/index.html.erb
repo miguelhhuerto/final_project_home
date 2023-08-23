@@ -35,7 +35,7 @@
     <% total_fee = 0 %>
     <% @orders.each do |order| %>
       <% total_amount += order.amount %>
-      <% total_coins += order.coin %>
+      <% total_coins += order.coins %>
       <% total_fee += (total_amount * total_coins) %>
       <tr>
         <td><%= order.serial_number %></td>
@@ -45,8 +45,8 @@
         <td><%= order.offer.name%></td>
         <td><%= order.created_at %></td>
         <td><%= order.amount %></td>
-        <td><%= order.coin %></td>
-        <td><%= order.amount * order.coin %></td>
+        <td><%= order.coins %></td>
+        <td><%= order.amount * order.coins %></td>
         <td><%= button_to 'Pay', pay_admin_order_path(order), method: :patch if order.may_pay? %>
         <td><%= button_to 'Cancel', cancel_admin_order_path(order), method: :patch if order.may_cancel? %> </td>
       </tr>

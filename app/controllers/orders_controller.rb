@@ -43,7 +43,7 @@ class OrdersController < ApplicationController
     def cancel
       if @order.may_cancel? && @order.cancel!
         flash[:notice] = "Order Canceled"
-        redirect_to admin_orders_path 
+        redirect_to user_order_history_index(@user)
       end
     end
 

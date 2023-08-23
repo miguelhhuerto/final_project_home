@@ -5,6 +5,7 @@ class Order < ApplicationRecord
     validate :amount_for_genre  
     validates :offer, presence: true, if: :deposit_genre?
     after_create :assign_serial_number
+    validates :remarks, presence: true, if: -> { @admin_balance_view }
 
 include AASM
 
