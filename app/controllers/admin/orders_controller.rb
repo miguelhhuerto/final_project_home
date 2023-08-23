@@ -4,6 +4,13 @@ class Admin::OrdersController < ApplicationController
         @orders = Order.all
     end
 
+    def cancel
+      if @order.may_cancel? && @order.cancel!
+        flash[:notice] = "Order Canceled"
+        redirect_to admin_orders_path 
+      end
+    end
+
    
   private
 

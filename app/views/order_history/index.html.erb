@@ -5,6 +5,7 @@
       <td><%= order.coins %></td>
       <td><%= order.created_at %></td>
       <td><%= order.state %></td>
+      <td><%= button_to 'Cancel Order', cancel_user_order_history_path(order), method: :patch if order.may_cancel? && order.state == "submitted" %></td>
     </tr>
   <% end %>
 </table>
