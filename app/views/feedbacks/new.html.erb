@@ -1,0 +1,24 @@
+<h1>New Feedback</h1>
+
+
+<%= form_with model: @feedback, url: user_winning_feedbacks_path do |form| %>
+  <% if @feedback.errors&.any? %>
+  <ul>
+    <% @feedback.errors.each do |error| %>
+      <li><%= error.full_message %></li>
+    <% end %>
+  </ul>
+  <% end %>
+  <div>
+    <%= form.label :image %>
+    <%= form.file_field :image %>
+  </div>
+
+  <div>
+    <%= form.label :message %>
+    <%= form.text_field :message %>
+  </div>
+
+
+  <%= form.submit %>
+<% end %>

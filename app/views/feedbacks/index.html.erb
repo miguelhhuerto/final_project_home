@@ -1,0 +1,14 @@
+<h1>Feedback</h1>
+  <table>
+    <thead>
+      <td>Image</td>
+      <td>Message</td>
+      <td>Username</td>
+    </thead>
+    <% @feedbacks.each do |feedback| %>
+      <tr>
+        <td><%= image_tag feedback.image.url if feedback.image.present? %></td>
+        <td><%= feedback.message %></td>
+        <td><%= feedback.user.username %></td>
+    <% end %>
+ </table>
