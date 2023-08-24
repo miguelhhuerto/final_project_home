@@ -27,8 +27,11 @@
       <td> <%=""%> </td>
       <% end %>
       <td><%= user.email %></td>
-      <td></td>
-      <td></td>
+      <% total = 0 %>
+      <%User.where(parent_id: user).each do |child|%>
+        <%total += child.total_deposit%>
+      <% end %>
+      <td> <%=total%> </td>
       <td><%= user.coins %></td>
       <td><%= user.created_at%></td>
       <td></td>

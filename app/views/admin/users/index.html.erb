@@ -21,8 +21,12 @@
       <% end %>
       <td><%= link_to user.username, new_admin_user_orders_increase_path(user.id)%></td>
       <td><%= user.email %></td>
-      <td></td>
-      <td></td>
+      <td><%=user.total_deposit%></td>
+      <% total = 0 %>
+      <%User.where(parent_id: user).each do |child|%>
+        <%total += child.total_deposit%>
+      <% end %>
+      <td> <%=total%> </td>
       <td><%= user.coins %></td>
       <td></td>
       <td><%= user.children_members %></td>

@@ -9,8 +9,7 @@
 <div>
     <%= form_for @order, url: orders_path do |form| %>
   <%= form.hidden_field :offer_id, value: @offer.id %>
-  <%= form.label :genre %>
-  <%= form.text_field :genre %>
+  <%= form.hidden_field :genre, value: 'deposit' %>
   <%= form.label :amount %>
   <%= form.number_field :amount %>
   <%= form.label :coins %>
