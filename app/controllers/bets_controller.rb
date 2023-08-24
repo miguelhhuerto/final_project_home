@@ -8,12 +8,9 @@ class BetsController < ApplicationController
       coins_to_bet.times do
         bet = Bet.create(user: current_user, item: @item)
         if bet.save
+          bet.item.increment!(:number_count, 1)
           Rails.logger.info "Bet created: #{bet.inspect}"
-          if @item.batch_count == 1
-            number_count = format('%04d',@item.bets.count)
-          else
-            number_count = format('%04d',  ( @item.bets.count - ((@item.minimum_bets)*(@item.batch_count) )))
-          end
+          number_count = format('%04d',  bet.item.number_count)
     
           formatted_date = Time.current.strftime('%y%m%d')
           item_id = @item.id

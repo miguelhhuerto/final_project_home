@@ -58,6 +58,7 @@ class Item < ApplicationRecord
   def revise_quantity_and_batch_count
     self.update(quantity: self.quantity - 1)
     self.update(batch_count: self.batch_count + 1)
+    self.update(number_count: 0)
   end
 
   def destroy
