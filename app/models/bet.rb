@@ -2,7 +2,6 @@ class Bet < ApplicationRecord
     belongs_to :user
     belongs_to :item
     has_many :winners
-    after_create :subtract_coin
     after_create :assign_batch
 
     include AASM
@@ -24,7 +23,8 @@ class Bet < ApplicationRecord
         event :cancel do
           transitions from: :betting, to: :cancelled
           after do
-            user.increment(:coins, 1)
+            user.increment!(:coins, 1)
+            user.decrement!(:coins_used, 1)
             user.save
           end
         end
@@ -35,11 +35,5 @@ class Bet < ApplicationRecord
 
     def assign_batch
       self.batch_count = item.batch_count
-    end
-
-    
-    def subtract_coin
-      user.decrement(:coins)
-      user.save
     end
 end

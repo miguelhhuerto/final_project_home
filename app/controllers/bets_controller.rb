@@ -27,6 +27,7 @@ class BetsController < ApplicationController
 
       end
       current_user.decrement!(:coins, coins_to_bet)
+      current_user.increment!(:coins_used, coins_to_bet)
       redirect_to lottery_index_path, notice: "#{coins_to_bet} bets placed successfully."
     else
       redirect_to lottery_index_path, alert: "Insufficient coins"
