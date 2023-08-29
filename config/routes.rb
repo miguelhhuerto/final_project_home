@@ -23,8 +23,10 @@ Rails.application.routes.draw do
   constraints(AdminDomainConstraint.new) do
     namespace :admin do
       resources :home
+      resources :news_tickers
+      resources :banners
       resources :users do
-          resource :orders do
+          scope path: :orders do
             resources :increase, only: [:new, :create] do
               member do
                 patch :submit
@@ -92,6 +94,7 @@ Rails.application.routes.draw do
     resources :home
     resources :shop, only: [:index, :show]
     resources :orders, only: [:create]
+    resources :feedbacks
     
     
     resources :lottery, only: [:index, :show, :create] do
@@ -99,14 +102,13 @@ Rails.application.routes.draw do
     end
     resource :user do
       resources :addresses, except: :show
-      resources :lottery_history, only: [:index]
+      resources :lottery_history, only: [:index, :show]
       resources :order_history, only: [:index] do
         member do
           patch :cancel
         end
       end
-      resources :winnings, only: [:index] do
-        resources :address
+      resources :winnings, only: [:index, :new, :create, :edit, :update] do
         resources :feedbacks
         member do
           patch :claim
