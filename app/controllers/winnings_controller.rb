@@ -37,9 +37,14 @@ class WinningsController < ApplicationController
     end
 
     def claim
+      @user = current_user
       if @winner.may_claim?
-        redirect_to edit_user_winning_path(@winner)
-        flash[:notice] = "Item Claimed!"
+        if @user.addresses.count = 0
+          redirect_to new_user_address_path
+        else
+          redirect_to edit_user_winning_path(@winner)
+          flash[:notice] = "Item Claimed!"
+        end
       end
     end
 

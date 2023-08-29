@@ -7,11 +7,20 @@
   <% end %>
 </div>
 
-<table>
+<div class="row row-cols-1 row-cols-md-3 g-4">
   <% @items.each do |item| %>
-    <tr class="item-row" data-category-ids="<%= item.category_ids.join(',') %>">
-      <td><%= image_tag item.image.url if item.image.present? %></td>
-      <td><%= link_to item.name, lottery_path(item)  %></td>
-    </tr>
+    <div class="col">
+      <div class="card h-100">
+        <%= image_tag item.image.url, class: "card-img-top", alt: "..." if item.image.present? %>
+        <div class="card-body">
+          <h5 class="card-title"><%= item.name %></h5>
+          <p class="card-text">Description or additional content here</p>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted">Last updated 3 mins ago</small>
+        </div>
+      </div>
+    </div>
   <% end %>
-</table>
+</div>
+

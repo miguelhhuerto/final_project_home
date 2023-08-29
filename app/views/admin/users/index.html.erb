@@ -1,38 +1,48 @@
-<h1>Admin Users</h1>
-<table class="table table-striped table-hover">
-  <thead>
-  <td>Parent E-mail</td>
-  <td>Username</td>
-  <td>E-mail</td>
-  <td>Total Deposit</td>
-  <td>Members Total Deposit</td>
-  <td>Coins</td>
-  <td>Total Used Coins</td>
-  <td>Children Members</td>
-  <td>Phone Number</td>
-  </thead>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1 class="mb-4">Admin Users</h1>
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>Parent E-mail</th>
+            <th>Balance Order</th>
+            <th>Username</th>
+            <th>E-mail</th>
+            <th>Total Deposit</th>
+            <th>Members Total Deposit</th>
+            <th>Coins</th>
+            <th>Total Used Coins</th>
+            <th>Children Members</th>
+            <th>Phone Number</th>
+          </tr>
+        </thead>
 
-<% @users.each do |user| %>
-  <tr>
-    <% if user.parent_id.present? %>
-      <td><%= User.find_by(id: user.parent_id).email %></td>
-    <% else %>
-      <td></td>
-    <% end %>
-    <td><%=link_to "User Balance", new_admin_user_increase_path(user.id)%></td>
-    <td><%=user.username %></td>
-    <td><%= user.email %></td>
-    <td><%= user.total_deposit %></td>
-    <% @total = 0 %>
-    <% User.where(parent_id: user).each do |child| %>
-      <% @total += child.total_deposit.to_i if child.total_deposit.present? %>
-    <% end %>
-    <td><%= @total %></td>
-    <td><%= user.coins %></td>
-    <td><%= user.coins_used %></td>
-    <td><%= user.children_members %></td>
-    <td><%= user.phone_number %></td>
-  </tr>
-<% end %>
-
-
+        <tbody>
+          <% @users.each do |user| %>
+            <tr>
+              <% if user.parent_id.present? %>
+                <td><%= User.find_by(id: user.parent_id).email %></td>
+              <% else %>
+                <td></td>
+              <% end %>
+              <td><%= link_to "User Balance", new_admin_user_increase_path(user.id), class: "btn btn-secondary" %></td>
+              <td><%= user.username %></td>
+              <td><%= user.email %></td>
+              <td><%= user.total_deposit %></td>
+              <% @total = 0 %>
+              <% User.where(parent_id: user).each do |child| %>
+                <% @total += child.total_deposit.to_i if child.total_deposit.present? %>
+              <% end %>
+              <td><%= @total %></td>
+              <td><%= user.coins %></td>
+              <td><%= user.coins_used %></td>
+              <td><%= user.children_members %></td>
+              <td><%= user.phone_number %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

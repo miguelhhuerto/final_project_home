@@ -1,4 +1,11 @@
-<table>
+<table class="table table-striped table-hover">
+  <thead>
+      <td>Serial Number</td>
+      <td>Amount</td>
+      <td>Coins</td>
+      <td>Created at</td>
+      <td>State</td>
+  </thead>
   <% @orders.each do |order| %>
       <td><%= order.serial_number %></td>
       <td><%= order.amount %></td>

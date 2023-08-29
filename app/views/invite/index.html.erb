@@ -1,5 +1,26 @@
 <h2>Invite Page</h2>
 
+<div class = "d-flex justify-content-center">
+    <div class="card" style="width: 18rem;">
+      <%= image_tag @png.to_data_url, class: "card-img-top", alt: "..." %>
+      <div class="card-body">
+        <p class="card-text d-flex justify-content-center">Scan the QR Code to Invite Others to Join or Copy the Link Below</p>
+      </div>
+    </div>
+</div>
+</br>
+</br>
+<div class="d-flex justify-content-center">
+  <div class="card d-flex justify-content-center" style="width: 30rem;">
+    <div class="card-body">
+      <p class="link-content">
+        <%= "http://client.com:3000" + new_user_registration_path(promoter: @user.email) %>
+      </p>
+      <div class= "btn btn-danger" data-controller="clipboard" data-action="clipboard#copy" data-target="clipboard.link">
+        Copy to Clipboard
+      </button>
+    </div>
+  </div>
+</div>
 
-<%= image_tag @png.to_data_url %>
-<%= p "client.com:3000"+new_user_registration_path(promoter: @user.email).to_s %>
+

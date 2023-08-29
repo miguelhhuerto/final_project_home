@@ -21,6 +21,8 @@ gem 'aasm'
 
 gem 'i18n'
 
+gem 'webpacker'
+
 gem 'bootstrap-sass', '~> 3.4', '>= 3.4.1'
 
 gem 'sassc-rails', '>= 2.1.0'

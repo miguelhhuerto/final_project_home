@@ -28,22 +28,10 @@ Rails.application.routes.draw do
       resources :users do
           scope path: :orders do
             resources :increase, only: [:new, :create] do
-              member do
-                patch :submit
-                patch :pay
-              end
             end
             resources :deduct, only: [:new, :create] do
-              member do
-                patch :submit
-                patch :pay
-              end
             end
             resources :bonus, only: [:new, :create] do
-              member do
-                patch :submit
-                patch :pay
-              end
             end
           end
         end

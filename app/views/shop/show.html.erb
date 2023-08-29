@@ -1,19 +1,30 @@
-<%= 'Order: ' + @offer.name%>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <h2 class="mb-4"><%= 'Order: ' + @offer.name %></h2>
 
+      <div class="mb-3">
+        <%= image_tag @offer.image.url if @offer.image.present? %>
+      </div>
 
-</br>
-<%= image_tag @offer.image.url if @offer.image.present? %></p>
+      <div class="mb-3">
+        <strong><%= Offer.human_attribute_name(:amount) %>:</strong> <%= @offer.amount %> pesos
+      </div>
 
-</br>
-  <div><%= Offer.human_attribute_name(:amount) %>: <%= @offer.amount %> pesos</div>
-  <div><%= Offer.human_attribute_name(:coins) %>: <%= @offer.coins %> coins<div>
-<div>
-    <%= form_for @order, url: orders_path do |form| %>
-  <%= form.hidden_field :offer_id, value: @offer.id %>
-  <%= form.hidden_field :genre, value: 'deposit' %>
-  <%= form.hidden_field :amount, value: @offer.amount %>
-  <%= form.hidden_field :coins, value: @offer.coins %>
+      <div class="mb-3">
+        <strong><%= Offer.human_attribute_name(:coins) %>:</strong> <%= @offer.coins %> coins
+      </div>
 
-  <%= form.submit t('Place Order') %>
-<% end %>
+      <div class="mb-3">
+        <%= form_for @order, url: orders_path do |form| %>
+          <%= form.hidden_field :offer_id, value: @offer.id %>
+          <%= form.hidden_field :genre, value: 'deposit' %>
+          <%= form.hidden_field :amount, value: @offer.amount %>
+          <%= form.hidden_field :coins, value: @offer.coins %>
+
+          <%= form.submit 'Place Order', class: 'btn btn-primary' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>

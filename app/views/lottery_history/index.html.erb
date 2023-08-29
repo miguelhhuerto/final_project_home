@@ -1,4 +1,11 @@
-<table>
+<table class="table table-striped table-hover">
+
+  <thead>
+      <td>Serial Number</td>
+      <td>Coins</td>
+      <td>Created At</td>
+      <td>State</td>
+  </thead>
   <% @bets.each do |bet| %>
       <td><%= bet.serial_number%></td>
       <td><%= bet.coins %></td>
