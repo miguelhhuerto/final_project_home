@@ -1,0 +1,30 @@
+<%= link_to 'News Index', admin_banners_path %> 
+
+<%= form_with model: @banner, url: admin_banners_path do |form| %>
+<% if banner.errors&.any? %>
+  <ul>
+    <% banner.errors.each do |error| %>
+      <li><%= error.full_message %></li>
+    <% end %>
+  </ul>
+  <% end %>
+
+  <div>
+    <%= form.file_field :preview %>
+  </div>
+
+  <%= form.label :online_at %>
+  <%= form.datetime_local_field :online_at %>
+
+  <%= form.label :offline_at %>
+  <%= form.datetime_local_field :offline_at %>
+
+  <div class="field">
+    <%= form.label "Status" %>
+    <%= form.collection_radio_buttons :status, Banner.statuses.keys, :to_s, :to_s, { label: "Status" } %>
+  </div>
+
+  <%= form.submit %>
+<% end %>
+
+

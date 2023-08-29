@@ -1,0 +1,24 @@
+<h1>Banner Index</h1>
+<%= link_to 'Banner Index', admin_banners_path %>
+<%= link_to 'New Banner', new_admin_banner_path %>
+<table class="table table-striped table-hover">
+  <thead>
+  <td>Preview</td>
+  <td>Online_at</td>
+  <td>Offline_at</td>
+  <td>Status</td>
+  </thead>
+
+  <% @banners.each do |banner| %>
+    <tr>
+      <td><%= image_tag banner.preview.url if banner.preview.present? %></td>
+      <td><%= banner.online_at %></td>
+      <td><%= banner.offline_at %></td>
+      <td><%= banner.status %></td>
+      <td>
+      <%= link_to 'Edit', edit_admin_banner_path(banner) %>
+      <%= button_to 'Delete', admin_banner_path(banner), method: :delete %>
+      </td>
+    </tr>
+  <% end %>
+</table>
