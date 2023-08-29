@@ -3,13 +3,22 @@ class OrdersController < ApplicationController
     before_action :set_offer, only: [:create]
 
     def index 
+      
       @orders = Order.where(offer_id: params[:offer_id])
+      @total_amount = 0
+      @total_coins = 0
+      @total_fee = 0 
 
       if params[:start_date].present? && params[:end_date].present?
         start_date = Date.parse(params[:start_date])
         end_date = Date.parse(params[:end_date])
         @orders = @orders.where(created_at: start_date..end_date)
       end
+    end
+
+    def new
+      @user = User.find(params[:user_id])
+      @order = @user.orders.build
     end
   
     def create
@@ -47,8 +56,6 @@ class OrdersController < ApplicationController
       end
     end
 
-    
-  
     private
 
     def set_order
@@ -56,7 +63,7 @@ class OrdersController < ApplicationController
     end
   
     def order_params
-      params.require(:order).permit(:genre, :amount, :coin, :remarks)
+      params.require(:order).permit(:genre, :amount, :coins, :remarks)
     end
   
     def set_offer
