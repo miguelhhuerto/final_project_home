@@ -3,9 +3,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  def to_param
-    username
-  end
+  # def to_param
+  #   username
+  # end
 
   enum role: { client: 0, admin: 1 }
   validates :phone_number, phone: {
@@ -23,6 +23,8 @@ class User < ApplicationRecord
   has_many :offers
   has_many :orders
   has_many :winners
+  has_many :news_tickers
+  has_many :feedbacks
   belongs_to :parent, class_name: 'User', optional: true
   has_many :children, class_name: 'User', foreign_key: 'parent_id', dependent: :nullify
   accepts_nested_attributes_for :profile
