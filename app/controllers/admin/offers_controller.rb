@@ -49,9 +49,10 @@ class Admin::OffersController < ApplicationController
       end
       
       def destroy
-          @offer.destroy
-          flash[:notice] = 'Offer deleted successfully'
-          redirect_to admin_offers_path
+        @offer = Offer.find(params[:id])
+        @offer.destroy
+        flash[:notice] = 'Offer deleted successfully'
+        redirect_to admin_offers_path
       end
 
   
