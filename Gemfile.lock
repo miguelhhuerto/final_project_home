@@ -85,6 +85,9 @@ GEM
       autoprefixer-rails (>= 9.1.0)
       popper_js (>= 1.14.3, < 2)
       sassc-rails (>= 2.0.0)
+    bootstrap-sass (3.4.1)
+      autoprefixer-rails (>= 5.2.1)
+      sassc (>= 2.0.0)
     builder (3.2.4)
     carrierwave (3.0.2)
       activemodel (>= 6.0.0)
@@ -270,10 +273,12 @@ DEPENDENCIES
   active_model_serializers
   bootsnap
   bootstrap (~> 4.5.0)
+  bootstrap-sass (~> 3.4, >= 3.4.1)
   carrierwave
   cssbundling-rails
   debug
   devise
+  i18n
   jbuilder
   jsbundling-rails
   mysql2 (~> 0.5)
@@ -282,6 +287,7 @@ DEPENDENCIES
   rails (~> 7.0.6)
   rest-client
   rqrcode (~> 2.0)
+  sassc-rails (>= 2.1.0)
   sprockets-rails
   stimulus-rails
   turbo-rails

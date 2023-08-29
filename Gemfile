@@ -15,11 +15,15 @@ gem 'rest-client'
 
 gem 'active_model_serializers'
 
-gem 'stimulus-rails'
-
 gem "rqrcode", "~> 2.0"
 
 gem 'aasm'
+
+gem 'i18n'
+
+gem 'bootstrap-sass', '~> 3.4', '>= 3.4.1'
+
+gem 'sassc-rails', '>= 2.1.0'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.6"
