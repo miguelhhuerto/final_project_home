@@ -1,24 +1,24 @@
 class Admin::BonusController < ApplicationController
-    def new;
-        @order = Order.new
-        @admin_balance_view = true
-    end
+  def new
+    @user = User.find(params[:user_id])
+    @order = Order.new
+  end
 
-    def create
-        @order = Order.new(order_params)
-        if @order.save
-          if @order.may_submit?
-            @order.submit!
-            if @order.may_pay?
-                @order.pay!
-            end
-          end
-        end 
-          @order.user.increment!(:coins, @order.coins )
-          flash[:notice] = 'Order created successfully'
-          redirect_to new_admin_user_orders_increase_path(user.id)
-        else
-          flash.now[:alert] = 'Order create failed'
-          render :new, status: :unprocessable_entity
+  def create
+    @user = User.find(params[:user_id])
+    @order = @user.orders.build(order_params)
+    @order.genre = :bonus
+    if @order.save
+      @order.pay!
+      redirect_to admin_users_path, notice: 'Bonus Added successfully!'
+    else
+      render :new
     end
+  end
+
+  private
+
+  def order_params
+    params.require(:order).permit(:coins, :remarks)
+  end
 end

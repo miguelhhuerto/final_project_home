@@ -1,23 +1,16 @@
-<h1>Hi</h1>
+<h1>Increase</h1>
+<%= link_to "Deduct", new_admin_user_deduct_path(@user.id)%>
+<%= link_to "Bonus", new_admin_user_bonu_path(@user.id)%>
+<%= form_with(model: @order, url: admin_user_increase_index_path(@user), data: {turbo: false}, method: :post) do |f| %>
 
-<%= form_with model: @order, url: admin_users_path, data: { turbo: false } do |form| %>
+  <div class="form-group">
+    <%= f.label :coins, 'Increase Coins' %>
+    <%= f.number_field :coins, class: 'form-control' %>
 
   <div>
-    <%= form.label :coins %>
-    <%= form.number_field :coins %>
+    <%= f.label :remarks %>
+    <%= f.text_area :remarks %>
   </div>
-
-  <div class="dropdown">
-    <%= form.label "Genre" %>
-    <%= form.collection_select :genre, Order.genres.keys, :to_s, :to_s, { label: "Genres" } %>
   </div>
-
-  </div>
-   <div>
-    <%= form.label :remarks %>
-    <%= form.text_area :remarks %>
-  </div>
-
-  
-  <%= form.submit %>
+  <%= f.submit 'Increase', class: 'btn btn-primary' %>
 <% end %>

@@ -1,0 +1,16 @@
+<h1>Bonus</h1>
+<%= link_to "Increase", new_admin_user_increase_path(@user.id)%>
+<%= link_to "Deduct", new_admin_user_deduct_path(@user.id)%>
+<%= form_with(model: @order, url: admin_user_bonus_index_path(@user), data: {turbo: false}, method: :post) do |f| %>
+
+  <div class="form-group">
+    <%= f.label :coins, 'Bonus Coins' %>
+    <%= f.number_field :coins, class: 'form-control' %>
+
+  <div>
+    <%= f.label :remarks %>
+    <%= f.text_area :remarks %>
+  </div>
+  </div>
+  <%= f.submit 'Add Bonus', class: 'btn btn-primary' %>
+<% end %>
