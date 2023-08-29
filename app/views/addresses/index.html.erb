@@ -3,12 +3,12 @@
 <table>
   <thead>
     <td>Genre</td>
-    <td>Name</td>
-    <td>Address</td>
-    <td>Phone Number</td>
-    <td>Remark</td>
-    <td>Default?</td>
-    <td>Action</td>
+    <td><%= Address.human_attribute_name(:name) %></td>
+    <td><%=t("Address")%></td>
+    <td><%= Address.human_attribute_name(:phone_number) %></td>
+    <td><%= Address.human_attribute_name(:remark) %></td>
+    <td><%=t("Default?")%></td>
+    <td><%=t("Action")%></td>
 
   </thead>
 
@@ -31,4 +31,4 @@
   </table>
 
 <%= link_to 'Homepage', home_index_path %>
-<%= link_to 'Add Address', new_user_address_path %>
+<%= link_to t('Add Address'), new_user_address_path %>

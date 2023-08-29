@@ -5,17 +5,15 @@
 <%= image_tag @offer.image.url if @offer.image.present? %></p>
 
 </br>
-
+  <div><%= Offer.human_attribute_name(:amount) %>: <%= @offer.amount %> pesos</div>
+  <div><%= Offer.human_attribute_name(:coins) %>: <%= @offer.coins %> coins<div>
 <div>
     <%= form_for @order, url: orders_path do |form| %>
   <%= form.hidden_field :offer_id, value: @offer.id %>
   <%= form.hidden_field :genre, value: 'deposit' %>
-  <%= form.label :amount %>
-  <%= form.number_field :amount %>
-  <%= form.label :coins %>
-  <%= form.number_field :coins %>
-  <%= form.label :remarks %>
-  <%= form.text_area :remarks %>
-  <%= form.submit 'Place Order' %>
+  <%= form.hidden_field :amount, value: @offer.amount %>
+  <%= form.hidden_field :coins, value: @offer.coins %>
+
+  <%= form.submit t('Place Order') %>
 <% end %>
 </div>

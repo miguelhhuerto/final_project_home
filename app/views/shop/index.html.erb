@@ -4,17 +4,16 @@
 <%= link_to 'Homepage', home_index_path %>
   <table>
     <thead>
-      <td>Image</td>
-      <td>Name</td>
+      <td><%= Offer.human_attribute_name(:image) %></td>
+      <td><%= Offer.human_attribute_name(:name) %></td>
       <td>Genre</td>
-      <td>Amount</td>
-      <td>Coins</td>
-      <td>Status</td>
+      <td><%= Offer.human_attribute_name(:amount) %></td>
+      <td><%= Offer.human_attribute_name(:coins) %></td>
+      <td><%= Offer.human_attribute_name(:status) %></td>
     </thead>
     <% @offers.each do |offer| %>
       <tr>
         <td><%= image_tag offer.image.url if offer.image.present? %></td>
-        <td><%= offer.name %></td>
         <td><%= link_to offer.name, shop_path(offer) %></td>
         <td><%= offer.genre %></td>
         <td><%= offer.amount %></td>

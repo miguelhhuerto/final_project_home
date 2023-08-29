@@ -30,4 +30,30 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  hello: "Hello"
+  sign out: "Sign out"
+  sign in: "Sign in"
+  shop: "Shop"
+  lottery: "Lottery"
+  invite: "Invite"
+  Profile Information: "Profile Information"
+  Profile Picture: "Profile Picture"
+  Phone Number: "Phone Number"
+  Coins: "Coins"
+  Edit Profile: "Edit Profile"
+  Address: "Address"
+  Lottery History: "Lottery History"
+  Order History: "Order History"
+  Winnings: "Winnings"
+  Invites: "Invites"
+  Current password: "Current Password"
+  Choose file: "Choose File"
+  (leave blank if you don't want to change it): "(leave blank if you don't want to change it)"
+  we need your current password to confirm your changes: "(we need your current password to confirm your changes)"
+  activerecord:
+    attributes:
+      address:
+        name: "Name"
+  
+
+

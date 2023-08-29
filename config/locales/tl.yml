@@ -1,0 +1,59 @@
+tl:
+  hello: "Kamusta"
+  welcome: "Maligayang pagdating"
+  sign out: "Mag-sign out"
+  lottery: Lotto
+  shop: "Bilihan"
+  invite: "Mag-imbita"
+  Profile Information: "Impormasyon ng Profile"
+  Profile Picture: "Pangunahing Larawan"
+  Phone Number: "Number ng Telepono"
+  Coins: "Barya"
+  Edit Profile: "Ayusin ang Profile"
+  Address: "Mga Address"
+  Lottery History: "Tala ng Pagtaya"
+  Order History: "Tala ng Order"
+  Winnings: "Napanalunan"
+  Invites: "Mga Imbita"
+  we need your current password to confirm your changes: "(Ilagay muli ang kasalukuyang password upang ma-kumpirma ang mga pagbabago)"
+  (leave blank if you don't want to change it): "(Laktawan kung 'di nais palitan)"
+  Default?: "Pangunahin?"
+  Action: "Aksyon"
+  Add Address: "Magdagdag ng Address"
+  New Address: "Bagong Address"
+  Place Order: "Orderin"
+  activerecord:
+    attributes:
+      user:
+        image: "Larawan"
+        phone_number: "Number ng Telepono"
+        coins: "Barya"
+        current_password: "Kasalukuyang Password"
+        password_confirmation: "I-confirm ng Password"
+      address:
+        name: "Pangalan"
+        address: "Mga Address"
+        phone_number: "Numbero ng Telepono"
+        remark: "Komento"
+        :address_region_id: "Rehiyon"
+        :address_province_id: "Probinsya"
+        :address_city_id: "Lungsod"
+        :address_barangay_id: "Barangay"
+        :is_default: "Pangunahing Address?"
+      offer:
+        image: "Larawan"
+        name: "Pangalan"
+        amount: "Presyo"
+        coins: "Barya"
+        status: "Kalagayan"
+        remarks: "Komento"
+      winner:
+        state: "Estado"
+        price: "Presyo"
+        paid_at: "Oras ng Pagbayad"
+        item_batch_count: "Bilang ng Pangkat"
+        address_id: "Address ID"
+
+        
+        
+  

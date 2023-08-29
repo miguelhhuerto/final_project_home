@@ -1,15 +1,17 @@
 <h1>Profile Information</h1>
 
-<p>Profile Picture: <%= image_tag @user.image.url if @user.image.present? %></p>
+<p> <%= User.human_attribute_name(:image)%>: <%= image_tag @user.image.url if @user.image.present? %></p>
 <p>Username: <%= @user.username %></p>
 <p>Email: <%= @user.email %></p>
-<p>Phone Number: <%= @user.phone_number %></p>
-<p>Coins: <%= @user.coins %></p>
+<p> <%= User.human_attribute_name(:phone_number)%>: <%= @user.phone_number %></p>
+<p> <%= User.human_attribute_name(:coins)%>: <%= @user.coins %></p>
 
 
 
-<%= link_to 'Lottery History', user_lottery_history_index_path(@user)%>
-<%= link_to 'Order History', user_order_history_index_path(@user)%>
-<%= link_to 'Winnings', user_winnings_path(@user)%>
-<%= link_to 'Invites', user_children_members_path(@user)%>
+<%= link_to t('Edit Profile'), edit_user_registration_path if current_user%>
+<%= link_to t('Address'), user_addresses_path(@user) if current_user %>
+<%= link_to t('Lottery History'), user_lottery_history_index_path(@user)%>
+<%= link_to t('Order History'), user_order_history_index_path(@user)%>
+<%= link_to t('Winnings'), user_winnings_path(@user)%>
+<%= link_to t('Invites'), user_children_members_path(@user)%>
 

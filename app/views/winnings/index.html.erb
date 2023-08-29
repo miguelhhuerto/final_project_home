@@ -1,12 +1,12 @@
 
 <table>
   <thead>
-      <td>State</td>
-      <td>price</td>
-      <td>Paid At</td>
-      <td>Batch Count</td>
-      <td>Address ID</td>
-      <td>Action</td>
+      <td><%= Winner.human_attribute_name(:state)%></td>
+      <td><%= Winner.human_attribute_name(:price)%></td>
+      <td><%= Winner.human_attribute_name(:paid_at)%></td>
+      <td><%= Winner.human_attribute_name(:item_batch_count)%></td>
+      <td><%= Winner.human_attribute_name(:address_id)%></td>
+      <td><%=t('Aksyon')%></td>
   </thead>
   <% @winners.each do |winner| %>
       <td><%= winner.state %></td>
