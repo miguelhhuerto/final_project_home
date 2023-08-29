@@ -3,6 +3,8 @@ class Winner < ApplicationRecord
     belongs_to :item
     belongs_to :bet
     belongs_to :user
+    belongs_to :address, optional: true
+    
     aasm column: :state do
       state :won, initial: true
       state :claimed, :submitted, :paid, :shipped, :delivered, :shared, :published, :remove_published

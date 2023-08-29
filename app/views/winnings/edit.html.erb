@@ -1,0 +1,21 @@
+<h1>Choose Shipping Address</h1>
+
+
+
+<% if @error_messages %>
+  <div class="alert alert-danger">
+    <ul>
+      <% @error_messages.each do |error| %>
+        <li><%= error %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+<%= form_with model: @winner, url: "/user/winnings/#{params[:id]}", method: :patch do |form| %>
+
+  <div class="field">
+    <%= form.label :address_id, "Choose Address" %>
+    <%= form.collection_radio_buttons :address_id, @user.addresses, :id, :full_address %>
+  </div>
+  <%= form.submit "Update Winner" %>
+<% end %>

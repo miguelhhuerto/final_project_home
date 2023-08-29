@@ -13,6 +13,7 @@ class AddressesController < ApplicationController
   def create
     @address = @user.addresses.build(address_params)
     if @address.save
+      @address.update(full_address: @address.street_address.to_s + ", "+ @address.barangay.name.to_s + ", "+ @address.city.name.to_s + ", "+ @address.province.name.to_s + ", "+ @address.region.name.to_s)
       flash[:notice] = 'Address created successfully'
       redirect_to user_addresses_path(@user)
     else
@@ -24,6 +25,7 @@ class AddressesController < ApplicationController
 
   def update
     if @address.update(address_params)
+      @address.update(full_address: @address.street_address.to_s + ", "+ @address.barangay.name.to_s + ", "+ @address.city.name.to_s + ", "+ @address.province.name.to_s + ", "+ @address.region.name.to_s)
       flash[:notice] = 'Address updated successfully'
       redirect_to user_addresses_path(@user)
     else
