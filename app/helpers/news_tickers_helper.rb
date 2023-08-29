@@ -1,0 +1,2 @@
+module NewsTickersHelper
+end
