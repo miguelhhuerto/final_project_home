@@ -4,11 +4,13 @@
       <td>Image</td>
       <td>Message</td>
       <td>Username</td>
+      <td>Created at</td>
     </thead>
     <% @feedbacks.each do |feedback| %>
       <tr>
         <td><%= image_tag feedback.image.url if feedback.image.present? %></td>
         <td><%= feedback.message %></td>
         <td><%= feedback.user.username %></td>
+        <td><%= feedback.created_at %></td>
     <% end %>
  </table>
