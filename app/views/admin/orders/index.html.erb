@@ -30,39 +30,40 @@
     </tr>
   </thead>
   <tbody>
-    <% total_amount = 0 %>
-    <% total_coins = 0 %>
-    <% total_fee = 0 %>
+    <% @total_amount = 0 %>
+    <% @total_coins = 0 %>
+    <% @total_fee = 0 %>
     <% @orders.each do |order| %>
-      <% total_amount += order.amount %>
-      <% total_coins += order.coins %>
-      <% total_fee += (total_amount * total_coins) %>
+      <% @total_amount += order.amount.to_i %>
+      <% @total_coins += order.coins.to_i %>
+      <% @total_fee += (order.amount.to_i * order.coins.to_i) %>
       <tr>
         <td><%= order.serial_number %></td>
         <td><%= order.user.email %></td>
         <td><%= order.genre %></td>
         <td><%= order.state %></td>
-        <td><%= order.offer.name%></td>
+        <td><%= order.offer&.name%></td>
         <td><%= order.created_at %></td>
         <td><%= order.amount %></td>
-        <td><%= order.coins %></td>
-        <td><%= order.amount * order.coins %></td>
-        <td><%= button_to 'Pay', pay_admin_order_path(order), method: :patch if order.may_pay? %>
+        <td><%= order.coins.to_i %></td>
+        <td><%= order.amount.to_i * order.coins.to_i %></td>
+        <td><%= button_to 'Pay', pay_admin_order_path(order), data:{turbo: false}, method: :patch if order.may_pay? %>
         <td><%= button_to 'Cancel', cancel_admin_order_path(order), method: :patch if order.may_cancel? %> </td>
       </tr>
     <% end %>
 
     <tr>
       <td>Total Amount:</td>
-      <td><%= total_amount %></td>
+      <td><%= @total_amount %></td>
     </tr>
     <tr>
       <td>Total Coins:</td>
-      <td><%= total_coins %></td>
+      <td><%= @total_coins %></td>
     </tr>
     <tr>
       <td>Total Fee:</td>
-      <td><%= total_fee %></td>
+      <% @total_fee += (@total_amount * @total_coins) %>
+      <td><%= @total_fee %></td>
     </tr>
   </tbody>
  
