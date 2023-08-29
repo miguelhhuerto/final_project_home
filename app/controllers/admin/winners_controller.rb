@@ -1,6 +1,7 @@
 class Admin::WinnersController < ApplicationController
   before_action :set_winner, only: [:claim, :submit, :pay, :ship, :deliver, :share, :publish, :remove_publish]
   before_action :set_users, only: [:index]
+  before_action :winner_params, only: [:create]
 
   def index
     @winners = Winner.all
@@ -11,6 +12,30 @@ class Admin::WinnersController < ApplicationController
     end
   end
 
+  def new
+    @user = current_user
+    @winner = Winner.new
+  end
+
+  def create
+    @user = current_user
+    @winner = Winner.new(winner_params)
+  end
+
+
+  def edit
+    @user = current_user
+    @winner = Winner.find(params[:id])
+  end
+
+  def update
+    @winner = Winner.find(params[:id])
+    if @winner.update(winner_params)
+    else
+      render :edit
+    end
+  end
+  
   def claim
     if @winner.may_claim? && @winner.claim!
       flash[:notice] = "Item Claimed!"
@@ -26,7 +51,10 @@ class Admin::WinnersController < ApplicationController
   end
 
   def pay
-    if @winner.may_pay? && @winner.pay!
+    if @winner.may_pay?
+      @winner.pay!
+      @winner.update(admin_id: current_user)
+      @winner.update(paid_at: Time.now)
       flash[:notice] = "Item Paid!"
       redirect_to admin_winners_path
     end
@@ -51,20 +79,24 @@ class Admin::WinnersController < ApplicationController
   def remove_publish
     if @winner.may_remove_publish? && @winner.remove_publish!
       flash[:notice] = "Removed Publish!"
-      redirect_to admin_users_path 
+      redirect_to admin_winners_path
     end
   end
 
   def ship
       if @winner.may_ship? && @winner.ship!
         flash[:notice] = "Item Shipped!"
-        redirect_to admin_users_path 
+        redirect_to admin_winners_path 
       end
   end
   
 
 
   private
+
+  def winnner_params
+    params.require(:winner).permit(:bet_id, :user_id, :item_id, :item_batch_count ,:price) 
+  end
 
   def set_winner
     @winner = Winner.find(params[:id])

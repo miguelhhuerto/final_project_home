@@ -35,14 +35,15 @@ class Item < ApplicationRecord
 
   def pick_winner
     batch_bets = self.bets.where(batch_count: self.batch_count)
-    winner = batch_bets.sample
-    winner.update(state: 'won')
-    bets.where.not(state: 'won').update(state: 'lost')
-    Winner.create(bet_id: winner.id, 
-                  user_id: winner.user_id,
+    winning_bet = batch_bets.sample
+    winning_bet.update(state: 'won')
+    batch_bets.betting.update(state: 'lost')
+    winner = Winner.create(bet_id: winning_bet.id, 
+                  user_id: winning_bet.user_id,
                   item_id: self.id,
-                  item_batch_count: winner.batch_count
+                  item_batch_count: winning_bet.batch_count
                  )
+    puts winner.errors.full_messages
   end
 
   def before_ended?
