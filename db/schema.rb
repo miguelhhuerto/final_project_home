@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_24_042950) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_26_175638) do
   create_table "address_barangays", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "city_id"
     t.string "code"
@@ -59,9 +59,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_24_042950) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "full_address"
   end
 
   create_table "admin_invites", charset: "utf8mb4", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "banners", charset: "utf8mb4", force: :cascade do |t|
+    t.string "preview"
+    t.datetime "online_at"
+    t.datetime "offline_at"
+    t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -89,6 +99,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_24_042950) do
     t.string "message"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "user_id"
   end
 
   create_table "item_category_ships", charset: "utf8mb4", force: :cascade do |t|
@@ -115,6 +126,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_24_042950) do
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
     t.integer "number_count", default: 0
+  end
+
+  create_table "news_tickers", charset: "utf8mb4", force: :cascade do |t|
+    t.string "content"
+    t.integer "status", default: 0
+    t.string "admin_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "offers", charset: "utf8mb4", force: :cascade do |t|
@@ -171,7 +190,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_24_042950) do
     t.integer "role", default: 0
     t.string "phone_number"
     t.integer "coins"
-    t.float "total_deposit"
+    t.integer "total_deposit", default: 0
     t.integer "children_members"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -192,7 +211,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_24_042950) do
     t.string "address_id"
     t.integer "item_batch_count"
     t.string "state"
-    t.float "price"
+    t.integer "price", default: 0
     t.datetime "paid_at"
     t.string "admin_id"
     t.string "picture"
